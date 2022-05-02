@@ -5479,11 +5479,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\repo\\TaskControl\\TaskControl.Backend\\TaskControl.Backend\\TaskControl.Backend.csproj",
+      "projectUniqueName": "C:\\repo\\TaskControl\\taskcontrol-backend\\TaskControl.Backend\\TaskControl.Backend\\TaskControl.Backend.csproj",
       "projectName": "TaskControl.Backend",
-      "projectPath": "C:\\repo\\TaskControl\\TaskControl.Backend\\TaskControl.Backend\\TaskControl.Backend.csproj",
+      "projectPath": "C:\\repo\\TaskControl\\taskcontrol-backend\\TaskControl.Backend\\TaskControl.Backend\\TaskControl.Backend.csproj",
       "packagesPath": "C:\\Users\\gabrie.zeferino\\.nuget\\packages\\",
-      "outputPath": "C:\\repo\\TaskControl\\TaskControl.Backend\\TaskControl.Backend\\obj\\",
+      "outputPath": "C:\\repo\\TaskControl\\taskcontrol-backend\\TaskControl.Backend\\TaskControl.Backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\gabrie.zeferino\\AppData\\Roaming\\NuGet\\NuGet.Config",

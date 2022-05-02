@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "htjgqL5F3G6fWKmFc76H6Sz0yyaLB4xKP8j2ZgreOmue6vXgajoIaIyCIPZDlVO5Q9d6b2zrsJ0RyKqCDgm56Q==",
+  "dgSpecHash": "QrVY0Uu7Ae9BchIHMq+HE2zRC4uXjIPHLOyMpwxtOCPY5em2rekZQJaZ8FgTvBiBEfbUY5OPVTjRdysBCAxfaw==",
   "success": true,
-  "projectFilePath": "C:\\repo\\TaskControl\\TaskControl.Backend\\TaskControl.Backend\\TaskControl.Backend.csproj",
+  "projectFilePath": "C:\\repo\\TaskControl\\taskcontrol-backend\\TaskControl.Backend\\TaskControl.Backend\\TaskControl.Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gabrie.zeferino\\.nuget\\packages\\dnsclient\\1.6.0\\dnsclient.1.6.0.nupkg.sha512",
     "C:\\Users\\gabrie.zeferino\\.nuget\\packages\\dryioc.dll\\5.0.0\\dryioc.dll.5.0.0.nupkg.sha512",

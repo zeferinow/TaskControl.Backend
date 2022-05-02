@@ -14,8 +14,12 @@ namespace TaskControl.Backend.Controllers
     [LazyInjection]
     public class LoginController : Controller
     {
-        public Lazy<LoginAppService> LoginAppService { get; set; }
+        public LoginAppService LoginAppService { get; set; }
 
+        public LoginController(LoginAppService loginAppService)
+        {
+            LoginAppService = loginAppService;
+        }
         /// <summary>
         ///     User login/authentication
         /// </summary>
@@ -23,16 +27,16 @@ namespace TaskControl.Backend.Controllers
         [ProducesResponseType(typeof(JwtLogin), HttpResponseCode.Ok)]
         [ProducesResponseType(HttpResponseCode.PermissionDenied)]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] Login login)
+        public IActionResult Login([FromBody] Login login)
         {
-            var jwtToken = await LoginAppService.Value.Login(login);
+            var jwtToken = LoginAppService.Login(login);
 
             if(jwtToken != null)
             {
                 return Ok(jwtToken);
             }
 
-            throw new UnauthorizedAccessException("Username or password invalid");
+            return NotFound("User not found");
         }
     }
 }

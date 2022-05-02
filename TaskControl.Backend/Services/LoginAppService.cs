@@ -20,12 +20,12 @@ namespace TaskControl.Backend.Services
 
         public IConfiguration _config;
 
-        /*public LoginAppService(IConfiguration config)
+        public LoginAppService(IConfiguration config)
         {
             _config = config;
-        }*/
+        }
 
-        public async Task<JwtLogin> Login(Login login)
+        public JwtLogin Login(Login login)
         {
             var userEntity = UserAppService.Value.GetByLogin(login.UserLogin).FirstOrDefault();
 
@@ -77,7 +77,7 @@ namespace TaskControl.Backend.Services
                 _config["Jwt:Issuer"],
                 _config["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(15),
+                expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
