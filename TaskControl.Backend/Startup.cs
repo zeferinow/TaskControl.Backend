@@ -13,8 +13,11 @@ using System.Linq;
 using System.Text;
 using TaskControl.Backend.Attributes;
 using TaskControl.Backend.Data.Configurations;
+using TaskControl.Backend.Data.MongoDb;
 using TaskControl.Backend.Data.Repositories;
+using TaskControl.Backend.Domain;
 using TaskControl.Backend.TaskControl.Ioc;
+using AutoMapper;
 
 namespace TaskControl.Backend
 {
@@ -57,12 +60,21 @@ namespace TaskControl.Backend
             services.Configure<MongoDBConfiguration>(Configuration.GetSection(nameof(MongoDBConfiguration)));
             services.AddSingleton<IMongoDBConfiguration>(sp => sp.GetRequiredService<IOptions<MongoDBConfiguration>>().Value);
 
-            services.AddSingleton<IUserRepository, UserRepository>();
 
             services.AddMvc();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddControllers();
 
             ConfigureAppServices(services);
+
+            services.AddTransient(typeof(IMongoDbRepository<>), typeof(MongoDbRepository<>));
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ITaskRepository, TaskRepository>();
+            services.AddTransient<IProceedingRepository, ProceedingRepository>();
+
+            services.AddTransient<IBaseUserContext, ApiUserContext>();
 
             var iocContainer = new Container(rules =>
                     rules.With(propertiesAndFields: request =>
@@ -89,7 +101,10 @@ namespace TaskControl.Backend
 
             app.UseHttpsRedirection();
 
-            //app.UseCors();
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
             app.UseAuthentication();
 

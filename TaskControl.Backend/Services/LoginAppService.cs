@@ -17,13 +17,7 @@ namespace TaskControl.Backend.Services
     public class LoginAppService
     {
         public Lazy<UserAppService> UserAppService { get; set; }
-
-        public IConfiguration _config;
-
-        public LoginAppService(IConfiguration config)
-        {
-            _config = config;
-        }
+        public Lazy<JwtAppService> JwtAppService { get; set; }
 
         public JwtLogin Login(Login login)
         {
@@ -38,7 +32,7 @@ namespace TaskControl.Backend.Services
                     return null;
                 }
 
-                var token = GenerateToken(user);
+                var token = JwtAppService.Value.GenerateToken(user);
 
                 return new JwtLogin
                 {
@@ -60,27 +54,6 @@ namespace TaskControl.Backend.Services
                 Login = user.Login,
                 Password = user.Password
             };
-        }
-
-        private string GenerateToken(User user)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.NameIdentifier, user.Login)
-            };
-
-            var token = new JwtSecurityToken(
-                _config["Jwt:Issuer"],
-                _config["Jwt:Audience"],
-                claims,
-                expires: DateTime.Now.AddMinutes(30),
-                signingCredentials: credentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         private void VerifyCredentials(Login login, UserEntity user)

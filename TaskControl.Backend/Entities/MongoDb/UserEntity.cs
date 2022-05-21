@@ -2,9 +2,8 @@
 
 namespace TaskControl.Backend.Entities.MongoDb
 {
-    public class UserEntity
+    public class UserEntity : MongoEntity
     {
-        public ObjectId Id { get; set; }
         public string Name { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
