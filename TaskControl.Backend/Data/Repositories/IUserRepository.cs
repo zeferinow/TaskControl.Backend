@@ -9,5 +9,8 @@ namespace TaskControl.Backend.Data.Repositories
         IQueryable<UserEntity> GetAll();
         UserEntity GetById(ObjectId userId);
         string GetName(ObjectId userId);
+        UserEntity Update(UserEntity user);
+        void Delete(ObjectId objectId);
+        void Add(UserEntity userEntity);
     }
 }

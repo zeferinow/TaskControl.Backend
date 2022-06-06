@@ -29,5 +29,20 @@ namespace TaskControl.Backend.Data.Repositories
         {
             return UserMongoDbRepository.Value.GetAll().Where(entity => entity.Id == userId).Select(entity => entity.Name).FirstOrDefault();
         }
+
+        public UserEntity Update(UserEntity user)
+        {
+            return UserMongoDbRepository.Value.Update(user);
+        }
+
+        public void Delete(ObjectId userId)
+        {
+            UserMongoDbRepository.Value.Delete(userId);
+        }
+
+        public void Add(UserEntity userEntity)
+        {
+            UserMongoDbRepository.Value.Add(userEntity);
+        }
     }
 }

@@ -13,7 +13,9 @@ namespace TaskControl.Backend.Data.Repositories
         IQueryable<ProceedingEntity> GetUserTaskProceedings(ObjectId ticketId);
         void Add(ProceedingEntity proceedingEntity);
         ProceedingEntity Get(ObjectId proceedingId);
+        IEnumerable<ProceedingEntity> Get(IEnumerable<ObjectId> proceedingsIds);
         IQueryable<ProceedingEntity> GetAll();
         void AddDescription(ProceedingDescriptionEntity proceedingDescriptionEntity);
+        string GetDescription(ObjectId proceedingId);
     }
 }

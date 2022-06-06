@@ -18,6 +18,7 @@ using TaskControl.Backend.Data.Repositories;
 using TaskControl.Backend.Domain;
 using TaskControl.Backend.TaskControl.Ioc;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 
 namespace TaskControl.Backend
 {
@@ -41,6 +42,8 @@ namespace TaskControl.Backend
                     policy.WithOrigins("http://localhost:4200");
                 });
             });
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
@@ -72,7 +75,9 @@ namespace TaskControl.Backend
             services.AddTransient(typeof(IMongoDbRepository<>), typeof(MongoDbRepository<>));
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ITaskRepository, TaskRepository>();
+            services.AddTransient<ITaskListRepository, TaskListRepository>();
             services.AddTransient<IProceedingRepository, ProceedingRepository>();
+            services.AddTransient<ISequenceRepository, SequenceRepository>();
 
             services.AddTransient<IBaseUserContext, ApiUserContext>();
 

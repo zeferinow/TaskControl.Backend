@@ -2,11 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TaskControl.Backend.Models;
 
 namespace TaskControl.Backend.Extensions
 {
     public static class DateTimeExtensions
     {
+        public static DateOnly ToDateOnly(this DateTime value)
+        {
+            return new DateOnly { Value = value };
+        }
+
+        public static DateOnly ToDateOnly(this DateTime? nullableValue)
+        {
+            if (nullableValue != null)
+            {
+                return new DateOnly { Value = nullableValue.Value };
+            }
+
+            return null;
+        }
         public static bool IsEmpty(this DateTime dateTime)
         {
             return dateTime == default;

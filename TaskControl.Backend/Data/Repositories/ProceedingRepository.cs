@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +31,25 @@ namespace TaskControl.Backend.Data.Repositories
             throw new NotImplementedException();
         }
 
+        public IEnumerable<ProceedingEntity> Get(IEnumerable<ObjectId> proceedingsIds)
+        {
+            return ProceedingRepositoryInternal.Value.GetAll().Where(proceeding => proceedingsIds.Contains(proceeding.Id));
+        }
+
         public IQueryable<ProceedingEntity> GetAll()
         {
             return ProceedingRepositoryInternal.Value.GetAll();
+        }
+
+        public string GetDescription(ObjectId proceedingId)
+        {
+            var description = ProceedingDescriptionRepository.Value.GetAll().FirstOrDefault(x => x.ProceedingId == proceedingId);
+            if(description != null)
+            {
+                return description.DescriptionPlainText;
+            }
+
+            return null;
         }
 
         public ProceedingEntity GetUserTaskProceeding(TaskEntity ticketId, UserEntity userId)

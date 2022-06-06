@@ -35,7 +35,7 @@ namespace TaskControl.Backend.Controllers
                 return Ok(jwtToken);
             }
 
-            return NotFound("User not found");
+            throw new UnauthorizedAccessException("Username or password invalid");
         }
     }
 }

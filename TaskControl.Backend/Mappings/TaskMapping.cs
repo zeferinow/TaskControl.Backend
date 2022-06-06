@@ -26,6 +26,10 @@ namespace TaskControl.Backend.Mappings
                 .ForMember(dest => dest.SequenceNumber, opt => opt.MapFrom(src => src.SequenceNumber))
                 .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
                 .ForMember(dest => dest.OpeningDate, opt => opt.MapFrom(src => src.OpeningDate));
+
+            CreateMap<ProceedingEntity, ProceedingView>()
+                .ForMember(dest => dest.SequenceNumber, opt => opt.MapFrom(src => src.SequenceNumber))
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt.ToString()));
         }
     }
 }

@@ -60,7 +60,7 @@ namespace TaskControl.Backend.Services
         {
             if(user.Password != login.Password)
             {
-                throw new UnauthorizedAccessException("Not authorized");
+                throw new UnauthorizedAccessException("Username or password invalid");
             }
         }
     }

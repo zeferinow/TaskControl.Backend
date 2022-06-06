@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskControl.Backend.Attributes;
+using TaskControl.Backend.Entities.MongoDb;
 using TaskControl.Backend.Extensions;
 using TaskControl.Backend.Models;
 using TaskControl.Backend.Services;
@@ -26,8 +28,8 @@ namespace TaskControl.Backend.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(TaskResume),HttpResponseCode.Ok)]
-        public IActionResult AddTask([FromBody] AddTask addTask) 
+        [ProducesResponseType(typeof(TaskResume), HttpResponseCode.Ok)]
+        public IActionResult AddTask([FromBody] AddTask addTask)
         {
             var taskEntity = TaskAppService.Add(addTask);
             var taskResume = TaskAppService.ConvertTaskToTaskResume(taskEntity);
@@ -44,6 +46,42 @@ namespace TaskControl.Backend.Controllers
             ProceedingAppService.AddProceeding(task, addProceeding);
 
             return Created(nameof(AddProceeding), null);
+        }
+
+        [HttpGet("list")]
+        [ProducesResponseType(typeof(TaskListData), HttpResponseCode.Ok)]
+        public IActionResult GetTaskListData()
+        {
+            return Ok(TaskAppService.GetData());
+        }
+
+        [HttpGet("{taskId}")]
+        [ProducesResponseType(typeof(TaskView), HttpResponseCode.Ok)]
+        public IActionResult GetTask([FromRoute] string taskId)
+        {
+            return Ok(TaskAppService.GetTask(taskId));
+        }
+
+        [HttpGet("proceeding-list/{taskId}")]
+        [ProducesResponseType(typeof(TaskView), HttpResponseCode.Ok)]
+        public IActionResult GetProceedingListData([FromRoute] string taskId)
+        {
+            return Ok(ProceedingAppService.GetProceedingData(taskId));
+        }
+
+        [HttpGet("new-sequence-number")]
+        [ProducesResponseType(typeof(int), HttpResponseCode.Ok)]
+        public IActionResult GetNewSequenceNumber()
+        {
+            return Ok(TaskAppService.GetNewSequenceNumber());
+        }
+
+        [HttpPut("{taskId}")]
+        [ProducesResponseType(HttpResponseCode.NoContent)]
+        public IActionResult UpdateTicket([FromRoute] string ticketId, [FromBody] UpdateTask updateTicket)
+        {
+            TaskAppService.Update(new ObjectId(ticketId), updateTicket);
+            return NoContent();
         }
     }
 }

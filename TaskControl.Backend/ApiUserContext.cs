@@ -25,7 +25,6 @@ namespace TaskControl.Backend
                 {
                     UserId = (ObjectId)userIdentity.FindFirst(JwtClaims.UserId)?.Value.ToObjectId();
                     TokenExpirationSeconds = long.Parse(userIdentity.FindFirst("exp").Value);
-
                 }
             }
         }

@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using TaskControl.Backend.Domain.Enums;
 
 namespace TaskControl.Backend.Extensions
 {
@@ -160,6 +161,23 @@ namespace TaskControl.Backend.Extensions
             }
 
             return text;
+        }
+
+        public static string EStatusToString(this ETaskStatus status)
+        {
+            switch (status)
+            {
+                case 0:
+                    return "Não Iniciado";
+                case (ETaskStatus)1:
+                    return "Em Andamento";
+                case (ETaskStatus)2:
+                    return "Aguardando";
+                case (ETaskStatus)3:
+                    return "Concluído";
+                default:
+                    return "";
+            }
         }
     }
 }

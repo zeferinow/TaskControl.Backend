@@ -15,10 +15,11 @@ namespace TaskControl.Backend.Data.Repositories
     {
         public Lazy<IMongoDbRepository<TaskEntity>> TaskMongoDbRepository { get; set; }
         public Lazy<IMongoDbRepository<TaskDescriptionEntity>> TaskDescriptionMongoDbRepository { get; set; }
+        public Lazy<ITaskListRepository> TaskListRepository { get; set; }
 
         public IQueryable<TaskEntity> GetAll()
         {
-            throw new NotImplementedException();
+            return TaskMongoDbRepository.Value.GetAll();
         }
 
         public TaskEntity GetById(ObjectId ticketId)
@@ -31,19 +32,29 @@ namespace TaskControl.Backend.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public TaskEntity Update(TaskEntity ticketEntity)
+        public TaskEntity Update(TaskEntity task)
         {
-            throw new NotImplementedException();
+            var ticketEntity = TaskMongoDbRepository.Value.Update(task);
+
+            TaskListRepository.Value.Update(task);
+
+            return ticketEntity;
         }
 
         public void Add(TaskEntity task)
         {
             TaskMongoDbRepository.Value.Add(task);
+            TaskListRepository.Value.Add(task);
         }
 
-        public void AddDescription(TaskDescriptionEntity ticket)
+        public void AddDescription(TaskDescriptionEntity description)
         {
-            TaskDescriptionMongoDbRepository.Value.Add(ticket);
+            TaskDescriptionMongoDbRepository.Value.Add(description);
+        }
+
+        public string GetDescriptionPlainTextById(ObjectId descriptionId)
+        {
+            return TaskDescriptionMongoDbRepository.Value.GetAll().Where(description => description.Id == descriptionId).Select(description => description.DescriptionPlainText).FirstOrDefault();
         }
     }
 }

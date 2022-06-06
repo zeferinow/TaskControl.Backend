@@ -12,8 +12,9 @@ namespace TaskControl.Backend.Data.Repositories
         IQueryable<TaskEntity> GetAll();
         TaskEntity GetById(ObjectId ticketId);
         TaskEntity GetStatus(ObjectId ticketId);
-        TaskEntity Update(TaskEntity ticketEntity);
+        TaskEntity Update(TaskEntity taskEntity);
         void Add(TaskEntity ticketEntity);
         void AddDescription(TaskDescriptionEntity ticket);
+        string GetDescriptionPlainTextById(ObjectId descriptionId);
     }
 }
